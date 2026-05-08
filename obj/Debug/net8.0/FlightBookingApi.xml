@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FlightBookingApi</name>
+    </assembly>
+    <members>
+        <member name="M:FlightBookingApi.Controllers.FlightsController.GetAll(System.String,System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Get all flights with optional route/date filtering.
+            </summary>
+            <param name="origin">Origin city.</param>
+            <param name="destination">Destination city.</param>
+            <param name="date">Departure date (yyyy-MM-dd).</param>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.FlightsController.GetById(System.Int32)">
+            <summary>
+            Get flight details by ID.
+            </summary>
+            <param name="id">Flight identifier.</param>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.FlightsController.Search(System.String,System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Search flights for AI agent usage.
+            </summary>
+            <param name="origin">Origin city.</param>
+            <param name="destination">Destination city.</param>
+            <param name="date">Departure date (yyyy-MM-dd).</param>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReportsController.Revenue(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Get total revenue grouped by route and flight.
+            </summary>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReportsController.BookingsByRoute">
+            <summary>
+            Get booking count per route.
+            </summary>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReportsController.SeatOccupancy(System.Int32)">
+            <summary>
+            Get seat occupancy percentage for a flight.
+            </summary>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReportsController.DailyBookings(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            Get daily booking trend.
+            </summary>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReportsController.AgentSummary">
+            <summary>
+            Get high-level summary for AI agents.
+            </summary>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReservationsController.Create(FlightBookingApi.DTOs.Reservations.CreateReservationRequestDto)">
+            <summary>
+            Create a new reservation.
+            </summary>
+            <param name="request">Booking payload.</param>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReservationsController.GetById(System.Int32)">
+            <summary>
+            Get reservation details by ID.
+            </summary>
+            <param name="id">Reservation identifier.</param>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.ReservationsController.Cancel(System.Int32)">
+            <summary>
+            Cancel reservation and release the seat.
+            </summary>
+            <param name="id">Reservation identifier.</param>
+        </member>
+        <member name="M:FlightBookingApi.Controllers.SeatsController.GetByFlight(System.Int32)">
+            <summary>
+            Get seat matrix for the selected flight.
+            </summary>
+            <param name="flightId">Flight identifier.</param>
+        </member>
+        <member name="T:FlightBookingApi.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:FlightBookingApi.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:FlightBookingApi.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:FlightBookingApi.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
