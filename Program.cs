@@ -31,6 +31,8 @@ builder.Services.AddScoped<IReportService, ReportService>();
 
 builder.Services.AddSwaggerGen(options =>
 {
+    // Single document with every controller (use for Azure AI Foundry / external OpenAPI consumers).
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Flight Booking API", Version = "v1" });
     options.SwaggerDoc("Flights", new OpenApiInfo { Title = "Flights APIs", Version = "v1" });
     options.SwaggerDoc("Seats", new OpenApiInfo { Title = "Seats APIs", Version = "v1" });
     options.SwaggerDoc("Reservations", new OpenApiInfo { Title = "Reservations APIs", Version = "v1" });
@@ -38,6 +40,9 @@ builder.Services.AddSwaggerGen(options =>
 
     options.DocInclusionPredicate((docName, apiDesc) =>
     {
+        if (string.Equals(docName, "v1", StringComparison.OrdinalIgnoreCase))
+            return true;
+
         var groupName = apiDesc.GroupName;
         return !string.IsNullOrWhiteSpace(groupName) && string.Equals(groupName, docName, StringComparison.OrdinalIgnoreCase);
     });
@@ -60,6 +65,7 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "All APIs (OpenAPI)");
     options.SwaggerEndpoint("/swagger/Flights/swagger.json", "Flights APIs");
     options.SwaggerEndpoint("/swagger/Seats/swagger.json", "Seats APIs");
     options.SwaggerEndpoint("/swagger/Reservations/swagger.json", "Reservations APIs");
