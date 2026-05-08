@@ -33,11 +33,11 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddSwaggerGen(options =>
 {
     // Single document with every controller (use for Azure AI Foundry / external OpenAPI consumers).
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Flight Booking API", Version = "v1" });
-    options.SwaggerDoc("Flights", new OpenApiInfo { Title = "Flights APIs", Version = "v1" });
-    options.SwaggerDoc("Seats", new OpenApiInfo { Title = "Seats APIs", Version = "v1" });
-    options.SwaggerDoc("Reservations", new OpenApiInfo { Title = "Reservations APIs", Version = "v1" });
-    options.SwaggerDoc("Reports", new OpenApiInfo { Title = "Reports APIs", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Flight Booking API", Version = "1.0.0" });
+    options.SwaggerDoc("Flights", new OpenApiInfo { Title = "Flights APIs", Version = "1.0.0" });
+    options.SwaggerDoc("Seats", new OpenApiInfo { Title = "Seats APIs", Version = "1.0.0" });
+    options.SwaggerDoc("Reservations", new OpenApiInfo { Title = "Reservations APIs", Version = "1.0.0" });
+    options.SwaggerDoc("Reports", new OpenApiInfo { Title = "Reports APIs", Version = "1.0.0" });
 
     options.DocInclusionPredicate((docName, apiDesc) =>
     {
@@ -50,9 +50,25 @@ builder.Services.AddSwaggerGen(options =>
 
     options.CustomOperationIds(apiDesc =>
     {
+        static string ToSnake(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+                return name;
+
+            var sb = new System.Text.StringBuilder();
+            foreach (var ch in name)
+            {
+                if (char.IsUpper(ch) && sb.Length > 0)
+                    sb.Append('_');
+                sb.Append(char.ToLowerInvariant(ch));
+            }
+
+            return sb.ToString();
+        }
+
         var controller = apiDesc.ActionDescriptor.RouteValues.TryGetValue("controller", out var c) ? c : "Api";
         var action = apiDesc.ActionDescriptor.RouteValues.TryGetValue("action", out var a) ? a : "Action";
-        return $"{controller}_{action}";
+        return $"{ToSnake(controller)}_{ToSnake(action)}";
     });
 
     options.DocumentFilter<CopilotCompatibleDocumentFilter>();

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FlightBookingApi.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/reports")]
 [ApiExplorerSettings(GroupName = "Reports")]
 public class ReportsController(IReportService reportService) : ControllerBase
 {
