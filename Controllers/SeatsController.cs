@@ -1,3 +1,4 @@
+using FlightBookingApi.DTOs.Seats;
 using FlightBookingApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ public class SeatsController(ISeatService seatService) : ControllerBase
     /// </summary>
     /// <param name="flightId">Flight identifier.</param>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<SeatStatusDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetByFlight(int flightId)
     {
         var seats = await seatService.GetSeatsByFlightAsync(flightId);

@@ -1,3 +1,4 @@
+using FlightBookingApi.DTOs.Flights;
 using FlightBookingApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,7 @@ public class FlightsController(IFlightService flightService) : ControllerBase
     /// <param name="destination">Destination city.</param>
     /// <param name="date">Departure date (yyyy-MM-dd).</param>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<FlightListItemDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] string? origin, [FromQuery] string? destination, [FromQuery] DateTime? date)
     {
         var flights = await flightService.GetFlightsAsync(origin, destination, date);
@@ -27,7 +28,7 @@ public class FlightsController(IFlightService flightService) : ControllerBase
     /// </summary>
     /// <param name="id">Flight identifier.</param>
     [HttpGet("{id:int}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FlightDetailsDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(int id)
     {
@@ -42,7 +43,7 @@ public class FlightsController(IFlightService flightService) : ControllerBase
     /// <param name="destination">Destination city.</param>
     /// <param name="date">Departure date (yyyy-MM-dd).</param>
     [HttpGet("search")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<FlightListItemDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Search([FromQuery] string? origin, [FromQuery] string? destination, [FromQuery] DateTime? date)
     {
         var flights = await flightService.GetFlightsAsync(origin, destination, date);

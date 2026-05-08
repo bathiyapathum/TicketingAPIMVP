@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/bathiyapathum/Documents/TicketBookingAgentMVP/FlightBookingApi/FlightBookingApi.csproj": {}
+    "/Users/bathiyapathum/Documents/MVP/TicketingAPIMVP/FlightBookingApi.csproj": {}
   },
   "projects": {
-    "/Users/bathiyapathum/Documents/TicketBookingAgentMVP/FlightBookingApi/FlightBookingApi.csproj": {
+    "/Users/bathiyapathum/Documents/MVP/TicketingAPIMVP/FlightBookingApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bathiyapathum/Documents/TicketBookingAgentMVP/FlightBookingApi/FlightBookingApi.csproj",
+        "projectUniqueName": "/Users/bathiyapathum/Documents/MVP/TicketingAPIMVP/FlightBookingApi.csproj",
         "projectName": "FlightBookingApi",
-        "projectPath": "/Users/bathiyapathum/Documents/TicketBookingAgentMVP/FlightBookingApi/FlightBookingApi.csproj",
-        "packagesPath": "/Users/bathiyapathum/.nuget/packages/",
-        "outputPath": "/Users/bathiyapathum/Documents/TicketBookingAgentMVP/FlightBookingApi/obj/",
+        "projectPath": "/Users/bathiyapathum/Documents/MVP/TicketingAPIMVP/FlightBookingApi.csproj",
+        "packagesPath": "/var/folders/0s/2mpm14_548x1t7rs35nbrjk00000gn/T/cursor-sandbox-cache/bfe36eee0e624b41f5efe36fa4856552/nuget",
+        "outputPath": "/Users/bathiyapathum/Documents/MVP/TicketingAPIMVP/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bathiyapathum/.nuget/NuGet/NuGet.Config"

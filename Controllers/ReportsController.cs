@@ -1,3 +1,4 @@
+using FlightBookingApi.DTOs.Reports;
 using FlightBookingApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ public class ReportsController(IReportService reportService) : ControllerBase
     /// Get total revenue grouped by route and flight.
     /// </summary>
     [HttpGet("revenue")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<RevenueReportDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Revenue([FromQuery] DateTime? from, [FromQuery] DateTime? to)
     {
         var data = await reportService.GetRevenueAsync(from, to);
@@ -23,7 +24,7 @@ public class ReportsController(IReportService reportService) : ControllerBase
     /// Get booking count per route.
     /// </summary>
     [HttpGet("bookings-by-route")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<BookingsByRouteDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> BookingsByRoute()
     {
         var data = await reportService.GetBookingsByRouteAsync();
@@ -34,7 +35,7 @@ public class ReportsController(IReportService reportService) : ControllerBase
     /// Get seat occupancy percentage for a flight.
     /// </summary>
     [HttpGet("seat-occupancy")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SeatOccupancyDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> SeatOccupancy([FromQuery] int flightId)
     {
@@ -46,7 +47,7 @@ public class ReportsController(IReportService reportService) : ControllerBase
     /// Get daily booking trend.
     /// </summary>
     [HttpGet("daily-bookings")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<DailyBookingTrendDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> DailyBookings([FromQuery] DateTime? from, [FromQuery] DateTime? to)
     {
         var data = await reportService.GetDailyBookingsAsync(from, to);
@@ -57,7 +58,7 @@ public class ReportsController(IReportService reportService) : ControllerBase
     /// Get high-level summary for AI agents.
     /// </summary>
     [HttpGet("agent-summary")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AgentSummaryDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> AgentSummary()
     {
         var data = await reportService.GetAgentSummaryAsync();

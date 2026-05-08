@@ -5,6 +5,7 @@ using FlightBookingApi.Repositories.Implementations;
 using FlightBookingApi.Repositories.Interfaces;
 using FlightBookingApi.Services.Implementations;
 using FlightBookingApi.Services.Interfaces;
+using FlightBookingApi.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -46,6 +47,15 @@ builder.Services.AddSwaggerGen(options =>
         var groupName = apiDesc.GroupName;
         return !string.IsNullOrWhiteSpace(groupName) && string.Equals(groupName, docName, StringComparison.OrdinalIgnoreCase);
     });
+
+    options.CustomOperationIds(apiDesc =>
+    {
+        var controller = apiDesc.ActionDescriptor.RouteValues.TryGetValue("controller", out var c) ? c : "Api";
+        var action = apiDesc.ActionDescriptor.RouteValues.TryGetValue("action", out var a) ? a : "Action";
+        return $"{controller}_{action}";
+    });
+
+    options.DocumentFilter<CopilotCompatibleDocumentFilter>();
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
