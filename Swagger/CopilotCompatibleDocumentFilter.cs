@@ -123,7 +123,8 @@ public sealed class CopilotCompatibleDocumentFilter : IDocumentFilter
 
         if (schema.AdditionalPropertiesAllowed == false)
         {
-            schema.AdditionalPropertiesAllowed = null;
+            // AdditionalPropertiesAllowed is bool (non-nullable) in Microsoft.OpenApi.Models — use true so strict false is not emitted.
+            schema.AdditionalPropertiesAllowed = true;
             schema.AdditionalProperties = null;
         }
     }

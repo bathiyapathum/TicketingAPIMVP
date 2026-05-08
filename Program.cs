@@ -66,8 +66,8 @@ builder.Services.AddSwaggerGen(options =>
             return sb.ToString();
         }
 
-        var controller = apiDesc.ActionDescriptor.RouteValues.TryGetValue("controller", out var c) ? c : "Api";
-        var action = apiDesc.ActionDescriptor.RouteValues.TryGetValue("action", out var a) ? a : "Action";
+        var controller = (apiDesc.ActionDescriptor.RouteValues.TryGetValue("controller", out var c) ? c : null) ?? "Api";
+        var action = (apiDesc.ActionDescriptor.RouteValues.TryGetValue("action", out var a) ? a : null) ?? "Action";
         return $"{ToSnake(controller)}_{ToSnake(action)}";
     });
 
