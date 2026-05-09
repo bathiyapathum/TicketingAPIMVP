@@ -12,8 +12,6 @@ public class ReportRepository(FlightBookingDbContext dbContext) : IReportReposit
     {
         var query = dbContext.Reservations
             .Where(x => x.BookingStatus == BookingStatus.Booked)
-            .Include(x => x.Flight)
-                .ThenInclude(f => f!.Route)
             .AsQueryable();
 
         if (from.HasValue)
@@ -29,12 +27,13 @@ public class ReportRepository(FlightBookingDbContext dbContext) : IReportReposit
         return await query
             .GroupBy(x => new
             {
-                Route = $"{x.Flight!.Route!.Origin} -> {x.Flight.Route.Destination}",
-                x.Flight.FlightCode
+                Origin = x.Flight!.Route!.Origin,
+                Destination = x.Flight.Route.Destination,
+                FlightCode = x.Flight.FlightCode
             })
             .Select(g => new RevenueReportDto
             {
-                Route = g.Key.Route,
+                Route = g.Key.Origin + " -> " + g.Key.Destination,
                 FlightCode = g.Key.FlightCode,
                 TotalBookings = g.Count(),
                 TotalRevenue = g.Sum(x => x.TotalAmount)
@@ -48,12 +47,14 @@ public class ReportRepository(FlightBookingDbContext dbContext) : IReportReposit
     {
         return await dbContext.Reservations
             .Where(x => x.BookingStatus == BookingStatus.Booked)
-            .Include(x => x.Flight)
-                .ThenInclude(f => f!.Route)
-            .GroupBy(x => $"{x.Flight!.Route!.Origin} -> {x.Flight.Route.Destination}")
+            .GroupBy(x => new
+            {
+                Origin = x.Flight!.Route!.Origin,
+                Destination = x.Flight.Route.Destination
+            })
             .Select(g => new BookingsByRouteDto
             {
-                Route = g.Key,
+                Route = g.Key.Origin + " -> " + g.Key.Destination,
                 BookingCount = g.Count()
             })
             .OrderByDescending(x => x.BookingCount)
